@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Header from './components/layout/Header'
+import SearchMovies from './components/SearchMovies'
+import Directory from './components/Directory'
+import About from './components/pages/About'
+import Details from './components/pages/Details'
+import { Provider } from 'react-redux'
+import store from './store'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount(){
+    document.title = "Movie Browser"
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <div className="container">
+              {/* <Header /> */}
+              <Route exact path="/" render={ props => (
+                <React.Fragment>
+                  <SearchMovies />
+                  <Directory />
+                </React.Fragment>
+              )} />
+              <Route path="/about" component={About}/>
+              <Route path="/details" component={Details}/>
+            </div>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;

@@ -18,7 +18,7 @@ export const fetchTestData = () => dispatch => {
 }
 
 export const searchMovieByTitle = (title) => dispatch => {
-  fetch(`http://www.omdbapi.com/?s=%22${title}%22&type=%22movie%22&apikey=${API_KEY}`)
+  fetch(`https://www.omdbapi.com/?s=%22${title}%22&type=%22movie%22&apikey=${API_KEY}`)
     .then(res => {
       if (res.status !== 200) {
         console.log(`Could not retrieve data, status:${res.status}`)

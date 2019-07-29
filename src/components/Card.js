@@ -18,15 +18,20 @@ const CardContainer = styled.div`
   @keyframes fadeIn {
     0% {
         opacity: 0;
+        transform: translate(0px, 3px);
     }
     100% {
         opacity: 100;
+        transform: translate(0px, 0px);
     }
-}
+  }
 
   :hover {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    transform: translate(0px, -1px);
+    transform: perspective(200px) translate3d(0px, 0px, 10px);
+    img {
+      transform: perspective(200px) translate3d(0px, 0px, 20px);
+    }
   }
 `;
 
@@ -70,14 +75,18 @@ const TitleText = styled.p`
 const ReleasedText= styled.p`
 `;
 
-class Card extends Component {
-  render() {
-    console.table(this.props.movie);
-    const { Title, Poster, Year } = this.props.movie;
+const PosterImg = styled.img`
+  transition: all 0.15s;
+`;
+
+export default function Card(props) {
+  // render() {
+    // console.table(this.props.movie);
+    const { Title, Poster, Year, imdbID } = props.movie;
     return (
-      <CardContainer>
+      <CardContainer onClick = { props.handleOnClick }>
         <PosterContainer>
-          <img src={ Poster } alt="" height="100%"/>
+          <PosterImg src={ Poster } alt="" height="100%"/>
         </PosterContainer>
         <TextContainer>
           <TitleTextContainer>
@@ -88,10 +97,11 @@ class Card extends Component {
       </CardContainer>
     )
   }
-}
+// }
 
 Card.propTypes = {
   movie: PropTypes.object.isRequired,
+  handleOnClick: PropTypes.func.isRequired
 }
 
-export default Card;
+// export default Card;

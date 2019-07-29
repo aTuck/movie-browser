@@ -11,8 +11,6 @@ const AboutP = styled.p`
 
 export default function About() {
   return (
-    <React.Fragment>
       <AboutP>This is a Movie Browser app v1.0.0. It uses the oMDB API.</AboutP>
-    </React.Fragment>
   )
 }

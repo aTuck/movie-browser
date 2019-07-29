@@ -3,7 +3,7 @@ import Card from './Card';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { fetchTestData } from '../actions/directoryActions'
+import { fetchTestData, getMovieByImbdID } from '../actions/directoryActions'
 
 const DirectoryContainer = styled.div`
   display: flex;
@@ -23,6 +23,7 @@ class Directory extends Component {
         {this.props.movies.map(movie => (
           <Card 
             movie={ movie }
+            // onClick={ this.props.getMovieByImbdID() }
           />
         ))}
       </DirectoryContainer>
@@ -40,6 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchTestData,
+  getMovieByImbdID,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Directory);

@@ -34,3 +34,21 @@ export const searchMovieByTitle = (title) => dispatch => {
       })
     })
 }
+
+export const getMovieByImbdID = (id) => dispatch => {
+  fetch(`http://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`)
+    .then(res => {
+      if (res.status !== 200) {
+        console.log(`Could not retrieve data, status:${res.status}`)
+        return
+      }
+      return res.json()
+    })
+    .then(data => {
+      console.log(data);
+      dispatch({
+        type: POPULATE_DIRECTORY_SUCCESS,
+        payload: data.Search
+      })
+    })
+}

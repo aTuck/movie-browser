@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const AboutP = styled.p`
+const DetailsP = styled.p`
   font-family: 'Montesserat', sans-serif;
   font-size: 18px;
   text-align: center;
@@ -9,10 +9,8 @@ const AboutP = styled.p`
   line-height: 24px;
 `;
 
-export default function About() {
+export default function Details() {
   return (
-    <React.Fragment>
-      <AboutP>This is a details page of the movie browser app.</AboutP>
-    </React.Fragment>
+      <DetailsP>This is a details page of the movie browser app.</DetailsP>
   )
 }

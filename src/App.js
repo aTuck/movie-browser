@@ -27,7 +27,13 @@ class App extends Component {
                   <Directory />
                 </React.Fragment>
               )} />
-              <Route path="/about" component={About}/>
+              <Route path="/search" render={ props => (
+                <React.Fragment>
+                  <SearchMovies />
+                  <Directory />
+                </React.Fragment>
+              )} />
+              {/* <Route path="/search" component={About}/> */}
               <Route path="/details" component={Details}/>
             </div>
           </div>

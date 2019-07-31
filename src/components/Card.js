@@ -82,7 +82,7 @@ const PosterImg = styled.img`
 export default function Card(props) {
   // render() {
     // console.table(this.props.movie);
-    const { Title, Poster, Year, imdbID } = props.movie;
+    const { Title, Poster, Year } = props.movie;
     return (
       <CardContainer onClick = { props.handleOnClick }>
         <PosterContainer>

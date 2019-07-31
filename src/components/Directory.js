@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
 import Card from './Card';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { fetchTestData, getMovieByImbdID } from '../actions/directoryActions'
 
 const DirectoryContainer = styled.div`
@@ -10,6 +11,12 @@ const DirectoryContainer = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
+`;
+
+const DetailsLink = styled(Link)`
+  text-decoration: none;
+  underline: none;
+  color: #000;
 `;
 
 class Directory extends Component {
@@ -21,10 +28,12 @@ class Directory extends Component {
     return (
       <DirectoryContainer>
         {this.props.movies.map(movie => (
-          <Card 
-            movie={ movie }
-            // onClick={ this.props.getMovieByImbdID() }
-          />
+          <DetailsLink to={`/details/${movie.imdbID}`}>
+            <Card
+              key={ movie.imdbID }
+              movie={ movie }
+            />
+          </DetailsLink>
         ))}
       </DirectoryContainer>
     );

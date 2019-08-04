@@ -1,40 +1,41 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Header from './components/layout/Header'
-import SearchMovies from './components/SearchMovies'
-import Directory from './components/Directory'
-import About from './components/pages/About'
+import { 
+  BrowserRouter as Router, 
+  Route, 
+  Switch,
+  Redirect,
+  // Link,
+  // withRouter,
+} from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Details from './components/pages/Details'
+import Directory from './components/Directory'
+import Search from './components/pages/Search'
 import { Provider } from 'react-redux'
 import store from './store'
 
 import './App.css';
+import SearchMovies from './components/SearchMovies';
 
 class App extends Component {
   componentDidMount(){
     document.title = "Movie Browser"
   }
+
   render() {
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
             <div className="container">
-              {/* <Header /> */}
-              <Route exact path="/" render={ props => (
-                <React.Fragment>
-                  <SearchMovies />
-                  <Directory />
-                </React.Fragment>
-              )} />
-              <Route path="/search" render={ props => (
-                <React.Fragment>
-                  <SearchMovies />
-                  <Directory />
-                </React.Fragment>
-              )} />
-              {/* <Route path="/search" component={About}/> */}
-              <Route path="/details" component={Details}/>
+              <Switch>
+                <Route exact path="/" render={ () => (
+                  <Redirect to="search?title="/>
+                )}/>
+                <Route path="/search" component={Search}/>
+                <Route path="/details/:id" component={Details}/>
+                <Route component={ () => <h1>error 404</h1> }/>
+              </Switch>
             </div>
           </div>
         </Router>

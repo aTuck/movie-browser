@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -12,7 +12,7 @@ const CardContainer = styled.div`
   background: #EFEFEF;
   border-radius: 15px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.1s;
   animation: 0.3s ease-in 0s 1 fadeIn;
 
   @keyframes fadeIn {
@@ -62,7 +62,6 @@ const TitleTextContainer = styled.div`
 `;
 
 const TitleText = styled.p`
-  font-family: 'Arial';
   font-size: 34px;
   line-height: 28px;
   letter-spacing: -2px;
@@ -73,18 +72,19 @@ const TitleText = styled.p`
 `;
 
 const ReleasedText= styled.p`
+  font-weight: 700;
 `;
 
 const PosterImg = styled.img`
-  transition: all 0.15s;
+  transition: all 0.1s;
 `;
 
-export default function Card(props) {
+const Card = (props) => {
   // render() {
     // console.table(this.props.movie);
     const { Title, Poster, Year } = props.movie;
     return (
-      <CardContainer onClick = { props.handleOnClick }>
+      <CardContainer>
         <PosterContainer>
           <PosterImg src={ Poster } alt="" height="100%"/>
         </PosterContainer>
@@ -101,7 +101,6 @@ export default function Card(props) {
 
 Card.propTypes = {
   movie: PropTypes.object.isRequired,
-  handleOnClick: PropTypes.func.isRequired
 }
 
-// export default Card;
+export default Card;

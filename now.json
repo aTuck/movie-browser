@@ -9,8 +9,8 @@
       "dest":"/static/$1"
     },
     {
-      "src":"/favicon.ico",
-      "dest":"/favicon.ico"
+      "src":"/clapperboard.png",
+      "dest":"/clapperboard.png"
     },
 
     {

@@ -8,7 +8,7 @@ import {
 const API_KEY = 56368032
 
 export const getMovieByImbdID = id => async dispatch => {
-  const result = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`)
+  const result = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`)
   // .then(res => {
   if (result.status !== 200) {
     return

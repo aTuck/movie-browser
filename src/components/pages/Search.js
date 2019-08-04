@@ -5,7 +5,9 @@ import SearchMovies from '../SearchMovies'
 import Directory from '../Directory'
 import { Test } from './Test.js'
 
-const AnimatedTransitionDiv = ``
+const SearchContainer = styled.div`
+  padding: 35px;
+`;
 
 const Search = props => {
   const params = new URLSearchParams(props.location.search);
@@ -25,13 +27,13 @@ const Search = props => {
   // }, [])
 
   return (
-    <>
+    <SearchContainer>
       {/* <Transition in={animate} timeout={500}>
         {state => (<Test state={state}>TESTING</Test>)}
       </Transition> */}
         <SearchMovies title={title}/>
         <Directory title={title}/>
-    </>
+    </SearchContainer>
   )
 }
 

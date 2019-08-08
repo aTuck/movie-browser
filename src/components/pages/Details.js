@@ -12,8 +12,10 @@ const DetailsContainer = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  position: relative;
   height: 40%;
   padding: 40px;
+  margin-bottom: 100px;
 `;
 
 const BackgroundPoster = styled.div`
@@ -24,7 +26,7 @@ const BackgroundPoster = styled.div`
   background-size: cover;
   background-position: center;
   z-index: -1;
-  filter: blur(70px);
+  filter: blur(40px);
 `;
 
 const MainDetailsCard = styled.div`
@@ -33,7 +35,7 @@ const MainDetailsCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 60%;
-  height: 35%;
+  height: 400px;
   border-radius: 25px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   padding: 35px;
@@ -53,42 +55,120 @@ const AdditionalDetailsContainer = styled.div`
 
 const TitleContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 const Title = styled.h1`
-  font-size: 6rem;
-  line-height: 72px;
+  font-size: 4rem;
+  line-height: 56px;
   letter-spacing: -4px;
   font-weight: 800;
   text-transform: capitalize;
   font-stretch: 100%;
-  max-width: 70%;
+  margin-bottom: 15px;
+
+  :after{
+    content: '(${props => props.releasedate})';
+    letter-spacing: 0px;
+    font-weight: 200;
+    font-size: 2rem;
+    color: #434343;
+    font-style: italic;
+    margin-left: 15px;
+    white-space: nowrap;
+  }
 `;
 
-const Released = styled.span`
-  font-size: 2rem;
-  color: #0f0f0f;
-  font-style: italic;
-`;
-
-const Plot = styled.p`
+const Plot = styled.blockquote`
   line-height: 24px;
-  font-size: 1rem;
-  margin-top: 35px;
+  font-size: 1.5rem;
+  margin-left: 40px;
+  margin-bottom: 10px;
+  padding: 5px;
+  position: relative;
+  :before {
+    font-family: "Arial";
+    content: "\\201C";
+    position: absolute;
+    color: #00000070;
+    font-size: 7rem;
+    top: 20px;
+    left: -35px; 
+  }
+
 `;
 const Poster = styled.img`
-  top: 5%;
   left: 5%;
   position: absolute;
   border-radius: 25px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  width: 300px;
+  height: 470px;
 `;
 
 const DetailsP = styled.p`
   margin-top: 25px;
 `;
+
+const MainDetailsTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const MainDetailsBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  width: 33%;
+`;
+
+const MainDetailsHeader = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 10px;
+`;
+
+const MainDetailsText = styled.p`
+  font-weight: 700;
+`;
+
+const DetailsCardContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+  padding: 35px;
+`;
+
+const DetailsCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 25px;
+  padding: 20px;
+  margin-right: 20px;
+  background: #efefef;
+  z-index: 1;
+`;
+
+const AdditionalDetailsHeader = styled.h2`
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 50px;
+`;
+
+const DetailsCardImg = styled.img`
+  height: 100px;
+  width: 100px;
+  margin-bottom: 10px;
+`;
+
+const DetailsCardText = styled.p`
+  font-size: 1rem;
+  font-weight: 700;
+`;
+
 const Details = props => {
     useEffect(() => {
       props.getMovieByImbdID(props.match.params.id) 
@@ -97,33 +177,78 @@ const Details = props => {
     return(
       <DetailsContainer>
         <BackgroundPoster bgImage={props.movie.Poster} />
-        <Poster src={props.movie.Poster} />
         <HeaderContainer>
+          <Poster src={props.movie.Poster} />
           <MainDetailsCard>
             <TitleContainer>
-              <Title>{props.movie.Title}</Title>
-              &nbsp;&nbsp;
-              <Released>({props.movie.Released})</Released>
+              <Title releasedate={props.movie.Released}>{props.movie.Title}</Title>
             </TitleContainer>
             <Plot>{props.movie.Plot}</Plot>
-            <p>Directed By: {props.movie.Director}</p>
-            <p>Written By: {props.movie.Writer}</p>
-            <span>{props.movie.Rated}</span>
+            <MainDetailsTextContainer>
+              <MainDetailsBlock>
+                <MainDetailsHeader>Directed By</MainDetailsHeader>
+                <MainDetailsText>{props.movie.Director}</MainDetailsText>
+              </MainDetailsBlock>
+              <MainDetailsBlock>
+                <MainDetailsHeader>Written By</MainDetailsHeader>
+                <MainDetailsText>{props.movie.Writer}</MainDetailsText>
+              </MainDetailsBlock>
+              <MainDetailsBlock>
+                <MainDetailsHeader>Rated</MainDetailsHeader>
+                <MainDetailsText>{props.movie.Rated}</MainDetailsText>
+              </MainDetailsBlock>
+            </MainDetailsTextContainer>
           </MainDetailsCard>
         </HeaderContainer>
         <AdditionalDetailsContainer>
-          <DetailsP>Actors: {props.movie.Actors}</DetailsP>
-          <DetailsP>{props.movie.Genre}</DetailsP>
-          <DetailsP>{props.movie.Runtime}</DetailsP>
-          <DetailsP>Language: {props.movie.Language}</DetailsP>
-          {/* <p>{props.movie.Ratings}</p> */}
-          <DetailsP>{props.movie.Metascore}</DetailsP>
-          <DetailsP>{props.movie.imdbRating}</DetailsP>
-          <DetailsP>{props.movie.imdbVotes}</DetailsP>
-          <DetailsP>{props.movie.Type}</DetailsP>
-          <DetailsP>{props.movie.DVD}</DetailsP>
-          <DetailsP>{props.movie.BoxOffice}</DetailsP>
-          <DetailsP>{props.movie.Production}</DetailsP>
+          
+          <AdditionalDetailsHeader>Actors</AdditionalDetailsHeader>
+          <DetailsCardContainer>
+            {(props.movie.Actors) && props.movie.Actors.split(",").map(actorName => {
+              return (
+                <DetailsCard>
+                <DetailsCardImg src="https://image.shutterstock.com/image-vector/man-silhouette-profile-picture-vector-260nw-151265393.jpg" alt=""/>
+                <DetailsCardText>{actorName}</DetailsCardText>
+                </DetailsCard>)
+            })}
+          </DetailsCardContainer>
+          <AdditionalDetailsHeader>Ratings</AdditionalDetailsHeader>
+          <DetailsCardContainer>{(props.movie.Ratings) && props.movie.Ratings.map(rating => {
+            return (
+              <DetailsCard>
+                <DetailsCardText>{rating.Source}</DetailsCardText>
+                <p>{rating.Value}</p>
+                {(rating.Source === "Internet Movie Database") ? <p>Votes: {props.movie.imdbVotes}</p> : null}
+              </DetailsCard>
+            )
+          })}</DetailsCardContainer>
+          <AdditionalDetailsHeader>Extras</AdditionalDetailsHeader>
+          <DetailsCardContainer>
+            <DetailsCard>
+              <DetailsCardText>Genre</DetailsCardText>
+              <p>{props.movie.Genre}</p>
+            </DetailsCard>
+            <DetailsCard>
+              <DetailsCardText>Runtime</DetailsCardText>
+              <p>{props.movie.Runtime}</p>
+            </DetailsCard>
+            <DetailsCard>
+              <DetailsCardText>Metascore</DetailsCardText>
+              <p>{props.movie.Metascore}</p>
+            </DetailsCard>
+            <DetailsCard>
+              <DetailsCardText>Metascore</DetailsCardText>
+              <p>{props.movie.DVD}</p>
+            </DetailsCard>
+            <DetailsCard>
+              <DetailsCardText>Box Office Revenue</DetailsCardText>
+              <p>{props.movie.BoxOffice}</p>
+            </DetailsCard>
+            <DetailsCard>
+              <DetailsCardText>Production Company</DetailsCardText>
+              <p>{props.movie.Production}</p>
+            </DetailsCard>
+          </DetailsCardContainer>
         </AdditionalDetailsContainer>
       </DetailsContainer>
     )

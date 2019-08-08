@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getMovieByImbdID } from '../../actions/detailsActions'
+import silhouette from '../../images/silhouette.png'
 
 const DetailsContainer = styled.div`
   display: flex;
@@ -207,7 +208,7 @@ const Details = props => {
             {(props.movie.Actors) && props.movie.Actors.split(",").map(actorName => {
               return (
                 <DetailsCard>
-                <DetailsCardImg src="https://image.shutterstock.com/image-vector/man-silhouette-profile-picture-vector-260nw-151265393.jpg" alt=""/>
+                <DetailsCardImg src={silhouette} alt=""/>
                 <DetailsCardText>{actorName}</DetailsCardText>
                 </DetailsCard>)
             })}

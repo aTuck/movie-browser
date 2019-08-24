@@ -1,8 +1,8 @@
-import { 
+import {
   POPULATE_DETAILS_BEGIN,
   POPULATE_DETAILS_SUCCESS,
-  POPULATE_DETAILS_FAILURE,
-} from '../actions/types';
+  POPULATE_DETAILS_FAILURE
+} from "../actions/types";
 
 const initialState = {
   movie: {},
@@ -11,17 +11,16 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  switch (action.type){
+  switch (action.type) {
     case POPULATE_DETAILS_BEGIN:
+      console.log("details reducer doing POPULATE_DIRECTORY_BEGIN action");
       return {
         ...state,
         loading: true,
         error: null
       };
     case POPULATE_DETAILS_SUCCESS:
-      console.log('details reducer doing POPULATE_DETAILS_SUCCESS action');
-      console.log(`details reducer paylod:${JSON.stringify(action.payload)}`)
-
+      console.log("details reducer doing POPULATE_DETAILS_SUCCESS action");
       return {
         ...state,
         movie: action.payload,
@@ -33,7 +32,7 @@ export default function(state = initialState, action) {
         ...state,
         movie: {},
         loading: false,
-        error: action.payload.error,
+        error: action.payload.error
       };
     default:
       return state;

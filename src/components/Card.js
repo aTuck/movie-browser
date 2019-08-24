@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const CardContainer = styled.div`
   display: flex;
@@ -9,38 +9,30 @@ const CardContainer = styled.div`
   height: 200px;
   text-wrap: wrap;
   margin: 10px;
-  background: #EFEFEF;
+  background: #efefef;
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.1s;
   animation: 0.3s ease-in 0s 1 fadeIn;
-
+  
   @keyframes fadeIn {
     0% {
-        opacity: 0;
-        transform: translate(0px, 3px);
+      opacity: 0;
+      transform: translate(0px, 3px);
     }
     100% {
-        opacity: 100;
-        transform: translate(0px, 0px);
+      opacity: 100;
+      transform: translate(0px, 0px);
     }
   }
 
   :hover {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     transform: perspective(200px) translate3d(0px, 0px, 10px);
     img {
       transform: perspective(200px) translate3d(0px, 0px, 20px);
     }
   }
-`;
-
-const PosterContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 35%;
-  overflow: hidden;
-  border-radius: 15px 15px 15px 15px;
 `;
 
 const TextContainer = styled.div`
@@ -61,9 +53,9 @@ const TitleTextContainer = styled.div`
   text-overflow: ellipsis;
 `;
 
-const TitleText = styled.p`
+const TitleText = styled.h2`
   font-size: 34px;
-  line-height: 28px;
+  line-height: 34px;
   letter-spacing: -2px;
   font-weight: 800;
   text-transform: capitalize;
@@ -71,36 +63,40 @@ const TitleText = styled.p`
   margin-bottom: 15px;
 `;
 
-const ReleasedText= styled.p`
-  font-weight: 700;
+const PosterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 35%;
+  overflow: visible;
+  border-radius: 30px;
 `;
 
 const PosterImg = styled.img`
+  width: 100%;
   transition: all 0.1s;
+  border-radius: 15px;
 `;
 
-const Card = (props) => {
-  // render() {
-    // console.table(this.props.movie);
-    const { Title, Poster, Year } = props.movie;
-    return (
-      <CardContainer>
-        <PosterContainer>
-          <PosterImg src={ Poster } alt="" height="100%"/>
-        </PosterContainer>
-        <TextContainer>
-          <TitleTextContainer>
-            <TitleText>{ Title }</TitleText>
-          </TitleTextContainer>
-          <ReleasedText>Released: { Year }</ReleasedText>  
-        </TextContainer>
-      </CardContainer>
-    )
-  }
-// }
+const Card = ({ Title, Poster, Year }) => {
+  return (
+    <CardContainer>
+      <PosterContainer>
+        <PosterImg src={Poster} alt="" height="100%" />
+      </PosterContainer>
+      <TextContainer>
+        <TitleTextContainer>
+          <TitleText>{Title}</TitleText>
+        </TitleTextContainer>
+        <strong>Released: {Year}</strong>
+      </TextContainer>
+    </CardContainer>
+  );
+};
 
 Card.propTypes = {
-  movie: PropTypes.object.isRequired,
-}
+  Title: PropTypes.string.isRequired,
+  Poster: PropTypes.string.isRequired,
+  Year: PropTypes.string.isRequired,
+};
 
 export default Card;

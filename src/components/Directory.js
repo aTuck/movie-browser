@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux';
-import Card from './Card';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { fetchTestData, searchMovieByTitle } from '../actions/directoryActions'
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import Card from "./Card";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { fetchTestData, searchMovieByTitle } from "../actions/directoryActions";
 
 const DirectoryContainer = styled.div`
   display: flex;
@@ -26,33 +26,38 @@ const NoResults = styled.p`
   color: #1f1f1f;
 `;
 
-// const Directory = ({ location, ...props }) => {
-class Directory extends Component {
-  componentDidMount = () => {
-    this.props.searchMovieByTitle(this.props.title);
-  }
+const Spinner = ({ loading, children }) => {
+  return loading ? <NoResults>Loading...</NoResults> : children;
+};
 
-  render() {
-    console.log("loading:"+this.props.loading);
-    return (
-      <DirectoryContainer>
-        {this.props.loading ? null : 
-          (this.props.movies.length > 0 ? this.props.movies.map(movie => (
-            <DetailsLink 
-              key={ movie.imdbID } 
-              to={`/details/${movie.imdbID}`}>
-              <Card
-                movie={ movie }
-              />
+const Directory = ({ loading, movies, title, searchMovieByTitle }) => {
+  useEffect(() => {
+    searchMovieByTitle(title);
+    window.scrollTo(0, 0);
+  }, [title]);
+
+  return (
+    <DirectoryContainer>
+      <Spinner loading={loading}>
+        {movies.length > 0 ? (
+          movies.map(movie => (
+            <DetailsLink key={movie.imdbID} to={`/details/${movie.imdbID}`}>
+              <Card {...movie} />
             </DetailsLink>
-          )) : <NoResults>No results</NoResults>)}
-      </DirectoryContainer>
-    );
-  }
-}
+          ))
+        ) : (
+          <NoResults>No results for '{title}'</NoResults>
+        )}
+      </Spinner>
+    </DirectoryContainer>
+  );
+};
+
 Directory.propTypes = {
+  loading: PropTypes.bool.isRequired,
   movies: PropTypes.array.isRequired,
-}
+  title: PropTypes.string.isRequired
+};
 
 const mapStateToProps = state => ({
   movies: state.directory.movies,
@@ -61,7 +66,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchTestData,
-  searchMovieByTitle,
-}
+  searchMovieByTitle
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Directory);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Directory);

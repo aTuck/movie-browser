@@ -1,9 +1,7 @@
-import React, { Component, useState } from 'react'
-import { 
-  Redirect,
-} from 'react-router-dom'
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const SearchForm = styled.form`
   display: flex;
@@ -31,21 +29,25 @@ const SearchMovies = props => {
   const [title, setTitle] = useState(props.title);
 
   return (
-    <SearchForm onSubmit={ () => <Redirect to={{ pathname: "/search", search: `?title=${title}` }}/>}>
-      <SearchTextBox 
-        type="text" 
+    <SearchForm
+      onSubmit={() => (
+        <Redirect to={{ pathname: "/search", search: `?title=${title}` }} />
+      )}
+    >
+      <SearchTextBox
+        type="text"
         name="title"
         placeholder="Type a movie title"
         autoComplete="off"
         value={title}
-        onChange={ (e) => setTitle(e.target.value) }
+        onChange={e => setTitle(e.target.value)}
       />
     </SearchForm>
-  )
-}
+  );
+};
 
 SearchMovies.propTypes = {
-  title: PropTypes.string.isRequired,
-}
+  title: PropTypes.string.isRequired
+};
 
 export default SearchMovies;

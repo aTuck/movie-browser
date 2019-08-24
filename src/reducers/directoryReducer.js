@@ -1,18 +1,19 @@
-import { 
+import {
   POPULATE_DIRECTORY_BEGIN,
   POPULATE_DIRECTORY_SUCCESS,
-  POPULATE_DIRECTORY_FAILURE,
-} from '../actions/types';
+  POPULATE_DIRECTORY_FAILURE
+} from "../actions/types";
 
 const initialState = {
   movies: [],
-  loading: false,
+  loading: true,
   error: null
 };
 
 export default function(state = initialState, action) {
-  switch (action.type){
+  switch (action.type) {
     case POPULATE_DIRECTORY_BEGIN:
+      console.log("directory reducer doing POPULATE_DIRECTORY_BEGIN action");
       return {
         ...state,
         loading: true,
@@ -20,12 +21,12 @@ export default function(state = initialState, action) {
         movies: []
       };
     case POPULATE_DIRECTORY_SUCCESS:
-      console.log('directory reducer doing POPULATE_DIRECTORY_SUCCESS action')
+      console.log("directory reducer doing POPULATE_DIRECTORY_SUCCESS action");
       return {
         ...state,
         loading: false,
         error: null,
-        movies: action.payload || [],
+        movies: action.payload || []
       };
     case POPULATE_DIRECTORY_FAILURE:
       return {

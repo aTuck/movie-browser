@@ -28,7 +28,8 @@ class App extends Component {
                 <Route
                   exact
                   path="/"
-                  render={() => <Redirect to="search?title=" />}
+                  // render={() => <Redirect to="search?title=" />}
+                  component={Search}
                 />
                 <Route path="/search" component={Search} />
                 <Route path="/details/:id" component={Details} />
